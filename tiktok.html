@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TikTok Stats</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .stats div {
+      width: 200px;
+      padding: 20px;
+      background-color: #f1f1f1;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TikTok Stats for "Braderz"</h1>
+    <div class="stats">
+      <div>
+        <h2>Followers</h2>
+        <p id="followers">Loading...</p>
+      </div>
+      <div>
+        <h2>Likes</h2>
+        <p id="likes">Loading...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fetch the TikTok data using JavaScript
+    const username = "bradley.png";
+    const apiUrl = `https://api.tiktok.com/aweme/v1/user/follower/list/?user_id=${username}`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const followersCount = data.total;
+        document.getElementById("followers").textContent = followersCount;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById("followers").textContent = "Error fetching followers";
+      });
+
+    const likesUrl = `https://api.tiktok.com/aweme/v1/user/like/list/?user_id=${username}`;
+
+    fetch(likesUrl)
+      .then(response => response.json())
+      .then(data => {
+        const likesCount = data.total;
+        document.getElementById("likes").textContent = likesCount;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById("likes").textContent = "Error fetching likes";
+      });
+  </script>
+</body>
+</html>
